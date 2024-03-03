@@ -4,7 +4,15 @@ void main() {
 
   MaterialApp app = MaterialApp(
 
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        textTheme: TextTheme(
+          
+        )
+
+        
+
+      ),
 
       home: Scaffold(
 
@@ -16,14 +24,33 @@ void main() {
 
             children: [
 
-              Text("O homi tá apenas começando..."),
+              Text(
+                'O homi tá apenas começando...',
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
 
-              const Text(
-                'Ai Calica..........',
-                style: TextStyle(fontWeight:FontWeight.bold),
+              Text(
+                'AI CALICA...........',
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               
-              Text("Stênio Aprendizado!"),
+              Text(
+                'Stênio aprendizado!',
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
 
             ]
 
@@ -38,49 +65,68 @@ void main() {
 
           children:[
 
-            IconButton(
-            
-              icon: Icon(Icons.home),        
-              tooltip: 'HOME',
+            Expanded (
 
-              onPressed: () {
-
-                print('HOME pressionado!');
-
-              },
-            
-            ),
+              child: IconButton(
               
-            ElevatedButton(
+                icon: Icon(Icons.home),        
+                tooltip: 'HOME',
 
-              child: Text('BOTÃO 1'),
-            
-              onPressed: () {
-            
-                print('Botão 1 pressionado!');
-            
-              },
+                onPressed: () {
+
+                  print('HOME pressionado!');
+
+                },
+              
+              ),
+
+            ),
+
+            Expanded (
+
+              child: ElevatedButton(
+              
+                onPressed: () {
+              
+                  print('Botão 1 pressionado!');
+              
+                },
+                child: Text('BOTÃO 1'),
+              ),
 
             ),
 
-            IconButton(
-              icon: Icon(Icons.add_ic_call),
-              onPressed: () {
-                print('CELL pressionado!');
-              },
-            ),
+            Expanded (
 
-            ElevatedButton(
+              child: IconButton(
+              
+                icon: Icon(Icons.cell_tower),        
+                tooltip: 'cell_tower',
 
-              child: Text('BOTÃO 2'),
-            
-              onPressed: () {
-            
-                print('Botão 2 pressionado!');
-            
-              },
+                onPressed: () {
+
+                  print('CELL pressionado!');
+
+                },
+              
+              ),
 
             ),
+
+            Expanded (
+
+              child: ElevatedButton(
+              
+                onPressed: () {
+              
+                  print('Botão 2 pressionado!');
+              
+                },
+                child: Text('BOTÃO 2'),
+              ),
+
+            ),
+
           ]
       
         )
