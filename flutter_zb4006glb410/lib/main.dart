@@ -5,18 +5,21 @@ void main() {
   MaterialApp app = MaterialApp(
 
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.indigo,
         textTheme: TextTheme(
           
         )
-
-        
 
       ),
 
       home: Scaffold(
 
-        appBar: AppBar(title: Text("Locações Stênio")),
+        appBar: AppBar(
+
+          title: Text("Locações Stênio", 
+          style: TextStyle(color: Color.fromARGB(255, 5, 5, 5),fontSize: 24)) 
+
+        ),
 
         body: Center(
 
@@ -41,16 +44,12 @@ void main() {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              
-              Text(
-                'Stênio aprendizado!',
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+            
+              CircularProgressIndicator(),
 
+              Image.network(
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOccdrm73FT-ML9-kpBon_TwAWN5gzykePdg&usqp=CAU'
+              ),
 
             ]
 
