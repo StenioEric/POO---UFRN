@@ -12,8 +12,7 @@ void main() {
       home: Scaffold(
         appBar: AppBar(
           title: Text("Locações Stênio", 
-          style: TextStyle(color: Color.fromARGB(255, 5, 5, 5),fontSize: 24)) 
-
+          style: TextStyle(color: Color.fromARGB(255, 5, 5, 5),fontSize: 24))
         ),
 
         body: Center(
@@ -40,61 +39,50 @@ void main() {
                 ),
               ),
               
-              Center(
-                child: FadeInImage.assetNetwork(
+              FadeInImage.assetNetwork(
                   placeholder: 'assets/loading.gif',
-                  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOccdrm73FT-ML9-kpBon_TwAWN5gzykePdg&usqp=CAU',
-                ),
-              )
+                  image:'https://extra.globo.com/incoming/12094788-7ac-566/w448/ronaldo-zidane-1.jpg',
+              ),
             ]
           )
         ),
 
         bottomNavigationBar: BottomAppBar (
-          
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
 
             children:[
 
-              Expanded (
-                child: IconButton(             
+              IconButton(             
                   icon: Icon(Icons.home),        
                   tooltip: 'HOME',
                   onPressed: () {
                     print('HOME pressionado!');
                   },              
                 ),
-              ),
 
-              Expanded (
-                child: ElevatedButton(             
+              ElevatedButton(             
                   onPressed: () {             
                     print('Botão 1 pressionado!');             
                   },
                   child: Text('BOTÃO 1'),
                 ),
-              ),
 
-              Expanded (
-                child: IconButton(
+              IconButton(
                   icon: Icon(Icons.cell_tower),        
                   tooltip: 'cell_tower',
                   onPressed: () {
                     print('CELL pressionado!');
                   },
                 ),
+              
+              ElevatedButton(             
+                onPressed: () {           
+                  print('Botão 2 pressionado!');             
+                },
+                child: Text('BOTÃO 2'),
               ),
-
-              Expanded (
-                child: ElevatedButton(             
-                  onPressed: () {           
-                    print('Botão 2 pressionado!');             
-                  },
-                  child: Text('BOTÃO 2'),
-                ),
-              ),
-            ]                 
+            ],                 
           ),
         ),
       ),
