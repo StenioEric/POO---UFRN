@@ -21,27 +21,11 @@ void main() {
 
             children: [
 
-              Text(
-                'AI CALICA...........',
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              Text(
-                'AI CALICA...........',
-                style: TextStyle(
-                  fontFamily: 'Arial',
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              
+              Text('AI CALICA...........',style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('AI CALICA...........',style: TextStyle(fontWeight: FontWeight.bold)),
               FadeInImage.assetNetwork(
-                  placeholder: 'assets/loading.gif',
-                  image:'https://extra.globo.com/incoming/12094788-7ac-566/w448/ronaldo-zidane-1.jpg',
+                placeholder: 'assets/loading.gif',
+                image:'https://extra.globo.com/incoming/12094788-7ac-566/w448/ronaldo-zidane-1.jpg',
               ),
             ]
           )
