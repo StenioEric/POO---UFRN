@@ -1,114 +1,112 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  MyApp app = MyApp();
+  runApp(app);
 }
 
+// Classe principal da aplicação
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App!!',
-      theme: ThemeData(
-        colorSchemeSeed: Colors.indigo,
-        useMaterial3: true,
-        brightness: Brightness.light,
-      ),
-      darkTheme: ThemeData(
-        colorSchemeSeed: Colors.blue,
-        useMaterial3: true,
-        brightness: Brightness.dark,
-      ),
-      home: const MyHomePage(title: 'Flutter Example App'),
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
       debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Dicas"),
+        ),
+        body: DataBodyWidget(
+          objects: dataObjects,
+        ),
+        bottomNavigationBar: NewNavBar(),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+// Widget para a barra de navegação inferior
+class NewNavBar extends StatelessWidget {
+  NewNavBar();
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  // Função para lidar com o toque em um item da barra de navegação
+  void botaoFoiTocado(int index) {
+    print("Tocaram no botão $index");
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    return BottomNavigationBar(
+      // Define a função a ser chamada quando um item é tocado
+      onTap: botaoFoiTocado,
+      // Define os itens da barra de navegação
+      items: const [
+        BottomNavigationBarItem(
+          label: "Cafés",
+          icon: Icon(Icons.coffee_outlined),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        BottomNavigationBarItem(
+          label: "Cervejas",
+          icon: Icon(Icons.local_drink_outlined),
+        ),
+        BottomNavigationBarItem(
+          label: "Nações",
+          icon: Icon(Icons.flag_outlined),
+        ),
+      ],
     );
   }
 }
+
+// Widget para exibir os dados em forma de tabela
+class DataBodyWidget extends StatelessWidget {
+  // Lista de objetos de dados
+  final List<Map<String, String>> objects;
+
+  // Construtor
+  DataBodyWidget({required this.objects});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: DataTable(
+        columns: [
+          // Define as colunas da tabela
+          DataColumn(label: Text("Nome")),
+          DataColumn(label: Text("Estilo")),
+          DataColumn(label: Text("IBU")),
+        ],
+        rows: objects.map(
+          (obj) => DataRow(
+            cells: [
+              // Células da tabela
+              DataCell(Text(obj["name"] ?? "")),
+              DataCell(Text(obj["style"] ?? "")),
+              DataCell(Text(obj["ibu"] ?? "")),
+            ],
+          ),
+        ).toList(),
+      ),
+    );
+  }
+}
+
+// Lista de objetos de dados
+var dataObjects = [
+  {
+    "name": "La Fin Du Monde",
+    "style": "Bock",
+    "ibu": "65",
+  },
+  {
+    "name": "Sapporo Premiume",
+    "style": "Sour Ale",
+    "ibu": "54",
+  },
+  {
+    "name": "Duvel",
+    "style": "Pilsner",
+    "ibu": "82",
+  },
+];
