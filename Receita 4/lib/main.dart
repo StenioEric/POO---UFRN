@@ -116,74 +116,27 @@ class NewNavBar extends StatelessWidget {
 }
 
 // Define um widget Flutter que exibe uma tabela de dados
-class DataBodyWidget extends StatelessWidget {
-  
-  // Lista de objetos que serão exibidos na tabela
-  final List objects;
-  // Construtor da classe DataBodyWidget
-  DataBodyWidget({this.objects = const []});
-  // Método obrigatório que constrói a interface do widget
-  @override
-  Widget build(BuildContext context) {
-    // Nomes das colunas da tabela
-    var columnNames = ["Nome","Estilo","IBU"];
-    // Nomes das propriedades nos objetos que correspondem às colunas
-    var propertyNames = ["name", "style", "ibu"];    
-    return Center(
-      child:SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-          child: DataTable(
-            columns: columnNames.map( 
-            // Para cada nome de coluna, cria um DataColumn com o nome e estilo itálico
-            (name) => DataColumn(
-              label: Text(name, style: TextStyle(fontStyle: FontStyle.italic))
-              )
-            ).toList(),
-            rows: objects.map( 
-              (obj) => DataRow(
-                cells: propertyNames.map(
-                  (propName) => DataCell(Text(obj[propName]))
-                ).toList()
-              )
-            ).toList(),
-          ),
-        )
-    );
-  }
-}
-
-// Define um widget Flutter que exibe uma tabela de dados
 class MytileWidget extends StatelessWidget {
   
   // Lista de objetos que serão exibidos na tabela
   final List objects;
-  // Construtor da classe DataBodyWidget
+  // Construtor da classe MytileWidget
   MytileWidget({this.objects = const []});
-  // Método obrigatório que constrói a interface do widget
-    var columnNames = ["Nome","Estilo","IBU"];
-    // Nomes das propriedades nos objetos que correspondem às colunas
-    var propertyNames = ["name", "style", "ibu"];  
   @override
   Widget build(BuildContext context) {   
-    return ListView(
-      scrollDirection:Axis.vertical,
-      children: [
-        DataTable(
-          columns: columnNames.map( 
-          // Para cada nome de coluna, cria um DataColumn com o nome e estilo itálico
-          (name) => DataColumn(
-            label: Text(name, style: TextStyle(fontStyle: FontStyle.italic))
-            )
-          ).toList(),
-          rows: objects.map( 
-            (obj) => DataRow(
-              cells: propertyNames.map(
-                (propName) => DataCell(Text(obj[propName]))
-              ).toList()
-            )
-          ).toList(),
-        ),
-      ],
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: objects.length,
+      itemBuilder: (context,index){
+      final obj = objects[index];
+        return ListTile(
+          title: Text(obj["name"]),
+          subtitle: Text("Estilo: ${obj["style"]} | IBU: ${obj["ibu"]}"),
+          onTap: () {
+            print("Tapped on ${obj["name"]}");
+          },
+        );
+      },
     );
   }
 }
