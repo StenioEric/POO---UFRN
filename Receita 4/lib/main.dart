@@ -21,7 +21,11 @@ class MyApp extends StatelessWidget {
         // Define a app bar personalizada
         appBar: CustomAppBar(),
         // Define o corpo da aplicação
-        body: MytileWidget(objects:dataObjects),
+        body: DataBodyWidget(
+          objects: dataObjects,
+          columnNames: ["NOME", "ANO", "PAIS"],
+          propertyNames: ["name","year","country"],
+        ),
         // Define a barra de navegação inferior personalizada
         bottomNavigationBar: NewNavBar(icones: const[
           Icons.abc,
@@ -115,150 +119,87 @@ class NewNavBar extends StatelessWidget {
   }
 }
 
-// Define um widget Flutter que exibe uma tabela de dados
-class MytileWidget extends StatelessWidget {
+// // Define um widget Flutter que exibe uma tabela de dados
+class DataBodyWidget extends StatelessWidget {
   
   // Lista de objetos que serão exibidos na tabela
-  final List objects;
-  // Construtor da classe MytileWidget
-  MytileWidget({this.objects = const []});
+    final List<Map<String, dynamic>> objects;
+    final List columnNames;
+    final List propertyNames;
+
+  // Construtor da classe DataBodyWidget
+  DataBodyWidget({required this.objects,required this.propertyNames,required this.columnNames});
+  // Método obrigatório que constrói a interface do widget
   @override
-  Widget build(BuildContext context) {   
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: objects.length,
-      itemBuilder: (context,index){
-      final obj = objects[index];
-        return ListTile(
-          title: Text(obj["name"]),
-          subtitle: Text("Estilo: ${obj["style"]} | IBU: ${obj["ibu"]}"),
-          onTap: () {
-            print("Tapped on ${obj["name"]}");
-          },
-        );
-      },
+  Widget build(BuildContext context) {  
+    return Center(
+      child:SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+          child: DataTable(
+            columns: columnNames.map( 
+            (name) => DataColumn(
+              label: Text(name, style: const TextStyle(fontStyle: FontStyle.italic))
+            )).toList(),
+
+            rows: objects.map( 
+              (obj) => DataRow(
+                cells: propertyNames.map(
+                  (propName) => DataCell(Text(obj[propName]))
+                ).toList()
+              )
+            ).toList(),
+          ),
+        )
     );
   }
 }
 
+
+// Define um widget Flutter que exibe uma tabela de dados
+// class MytileWidget extends StatelessWidget {
+  
+//   // Lista de objetos que serão exibidos na tabela
+//   final List objects;
+//   // Construtor da classe MytileWidget
+//   MytileWidget({this.objects = const []});
+//   @override
+//   Widget build(BuildContext context) {   
+//     return ListView.builder(
+//       scrollDirection: Axis.vertical,
+//       itemCount: objects.length,
+//       itemBuilder: (context,index){
+//       final obj = objects[index];
+//         return ListTile(
+//           title: Text(obj["name"]),
+//           subtitle: Text("Estilo: ${obj["style"]} | IBU: ${obj["ibu"]}"),
+//           onTap: () {
+//             print("Tapped on ${obj["name"]}");
+//           },
+//         );
+//       },
+//     );
+//   }
+// }
+
 // Lista de objetos que serão exibidos na tabela
 var dataObjects = [
-  {
-    "name": "La Fin Du Monde",
-    "style": "Tripel",
-    "ibu": "19",
-  },
-  {
-    "name": "Sapporo Premium",
-    "style": "Pale Lager",
-    "ibu": "20",
-  },
-  {
-    "name": "Duvel",
-    "style": "Belgian Strong Ale",
-    "ibu": "32",
-  },
-  {
-    "name": "Weihenstephaner Hefeweissbier",
-    "style": "Hefeweizen",
-    "ibu": "14",
-  },
-  {
-    "name": "Chimay Blue",
-    "style": "Belgian Strong Dark Ale",
-    "ibu": "35",
-  },
-  {
-    "name": "Westvleteren 12",
-    "style": "Quadrupel",
-    "ibu": "35",
-  },
-  {
-    "name": "Orval",
-    "style": "Belgian Pale Ale",
-    "ibu": "40",
-  },
-  {
-    "name": "Ayinger Celebrator Doppelbock",
-    "style": "Doppelbock",
-    "ibu": "24",
-  },
-  {
-    "name": "Guinness Draught",
-    "style": "Irish Dry Stout",
-    "ibu": "45",
-  },
-  {
-    "name": "Rochefort 10",
-    "style": "Quadrupel",
-    "ibu": "27",
-  },
-  {
-    "name": "Pliny the Elder",
-    "style": "Double IPA",
-    "ibu": "100+",
-  },
-  {
-    "name": "Trappistes Rochefort 8",
-    "style": "Belgian Strong Dark Ale",
-    "ibu": "22",
-  },
-  {
-    "name": "Pilsner Urquell",
-    "style": "Czech Pilsner",
-    "ibu": "40",
-
-  },
-  {
-    "name": "Weihenstephaner Vitus",
-    "style": "Weizenbock",
-    "ibu": "17",
-  },
-  {
-    "name": "North Coast Old Rasputin",
-    "style": "Russian Imperial Stout",
-    "ibu": "75",
-  },
-  {
-    "name": "Schneider Weisse Aventinus",
-    "style": "Weizenbock",
-    "ibu": "16",
-  },
-  {
-    "name": "Samuel Adams Boston Lager",
-    "style": "Vienna Lager",
-    "ibu": "30",
-  },
-  {
-    "name": "Founders KBS (Kentucky Breakfast Stout)",
-    "style": "Imperial Stout",
-    "ibu": "70",
-  },
-  {
-    "name": "Fuller's ESB (Extra Special Bitter)",
-    "style": "ESB",
-    "ibu": "40",
-  },
-  {
-    "name": "Ayinger Bräuweisse",
-    "style": "Hefeweizen",
-    "ibu": "23",
-  },
-  {
-    "name": "Köstritzer Schwarzbier",
-    "style": "Schwarzbier",
-    "ibu": "25",
-  },
-  {
-    "name": "Founders All Day IPA",
-    "style": "Session IPA",
-    "ibu": "42",
-  },
-  {
-    "name": "Paulaner Hefe-Weißbier Naturtrüb",
-    "style": "Hefeweizen",
-    "ibu": "12",
-  },
+  {"name": "Ford Mustang", "year": "1980", "country": "USA"},
+  {"name": "Chevrolet Corvette", "year": "1990", "country": "USA"},
+  {"name": "Volkswagen Golf GTI", "year": "1985", "country": "Germany"},
+  {"name": "Toyota Supra", "year": "1995", "country": "Japan"},
+  {"name": "Ferrari F40", "year": "1987", "country": "Italy"},
+  {"name": "Nissan Skyline GT-R", "year": "1999", "country": "Japan"},
+  {"name": "BMW M3", "year": "1992", "country": "Germany"},
+  {"name": "Porsche 911", "year": "1989", "country": "Germany"},
+  {"name": "Honda NSX", "year": "1991", "country": "Japan"},
+  {"name": "Audi Quattro", "year": "1980", "country": "Germany"},
+  {"name": "Lamborghini Countach", "year": "1985", "country": "Italy"},
+  {"name": "Mercedes-Benz 190E 2.3-16", "year": "1984", "country": "Germany"},
+  {"name": "Mazda RX-7", "year": "1986", "country": "Japan"},
+  {"name": "Ford Sierra RS Cosworth", "year": "1986", "country": "USA"},
+  {"name": "Buick Grand National", "year": "1987", "country": "USA"},
 ];
+
+
 
    
