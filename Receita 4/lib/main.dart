@@ -21,10 +21,9 @@ class MyApp extends StatelessWidget {
         // Define a app bar personalizada
         appBar: CustomAppBar(),
         // Define o corpo da aplicação
-        body: DataBodyWidget(
+        body: MytileWidget(
           objects: dataObjects,
-          columnNames: ["NOME", "ANO", "PAIS"],
-          propertyNames: ["name","year","country"],
+          propertyNames: ['year','country'],
         ),
         // Define a barra de navegação inferior personalizada
         bottomNavigationBar: NewNavBar(icones: const[
@@ -101,6 +100,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(kToolbarHeight); // Retorna o tamanho preferido da AppBar
 }
 
+
+
 // Widget da barra de navegação inferior personalizada
 class NewNavBar extends StatelessWidget {
   final List<IconData> icones;
@@ -119,53 +120,56 @@ class NewNavBar extends StatelessWidget {
   }
 }
 
-// Define um widget Flutter que exibe uma tabela de dados
-class DataBodyWidget extends StatelessWidget {
+// // Define um widget Flutter que exibe uma tabela de dados
+// class DataBodyWidget extends StatelessWidget {
   
-  // Lista de objetos que serão exibidos na tabela
-  final List<Map<String, dynamic>> objects;
-  final List columnNames;
-  final List propertyNames;
+//   // Lista de objetos que serão exibidos na tabela
+//   final List<Map<String, dynamic>> objects;
+//   final List columnNames;
+//   final List propertyNames;
 
-  // Construtor da classe DataBodyWidget
-  DataBodyWidget({required this.objects,required this.propertyNames,required this.columnNames});
+//   // Construtor da classe DataBodyWidget
+//   DataBodyWidget({required this.objects,required this.propertyNames,required this.columnNames});
   
-  // Método obrigatório que constrói a interface do widget
-  @override
-  Widget build(BuildContext context) {  
-    return Center(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: DataTable(
-          // Altera o tamanho das bordas(linhas da tabela)
-          border: TableBorder.all(width: 5.0),
-          columns: columnNames.map( 
-            (name) => DataColumn(
-              label: Text(name, style: const TextStyle(fontStyle: FontStyle.italic))
-            )).toList(),
+//   // Método obrigatório que constrói a interface do widget
+//   @override
+//   Widget build(BuildContext context) {  
+//     return Center(
+//       child: SingleChildScrollView(
+//         scrollDirection: Axis.vertical,
+//         child: DataTable(
+//           // Altera o tamanho das bordas(linhas da tabela)
+//           border: TableBorder.all(width: 5.0),
+//           columns: columnNames.map( 
+//             (name) => DataColumn(
+//               label: Text(name, style: const TextStyle(fontStyle: FontStyle.italic))
+//             )).toList(),
 
-          rows: objects.asMap().entries.map((entry){
-            final index = entry.key;
-            final obj = entry.value;
-            return DataRow(
-              color: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
-                  // Alternar as cores entre as linhas
-                  if (index % 2 == 0) return Colors.grey.withOpacity(0.7);
-                  return Theme.of(context).colorScheme.surface;
-                }
-              ),
-              cells: propertyNames
-              .map((propName) => DataCell(
-                Text(obj[propName]))
-              ).toList(),
-            );
-          }).toList(),
-        ),
-      ),
-    );
-  }
-}
+//           rows: objects.asMap().entries.map((entry){
+//             final index = entry.key;
+//             final obj = entry.value;
+//             return DataRow(
+//               color: MaterialStateProperty.resolveWith<Color>(
+//                 (Set<MaterialState> states) {
+//                   // Alternar as cores entre as linhas
+//                   if (index % 2 == 0) return Colors.grey.withOpacity(0.7);
+//                   return Theme.of(context).colorScheme.surface;
+//                 }
+//               ),
+//               cells: propertyNames
+//               .map((propName) => DataCell(
+//                 Text(obj[propName]))
+//               ).toList(),
+//             );
+//           }).toList(),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+
 // Lista de objetos que serão exibidos na tabela
 var dataObjects = [
   {"name": "Ford Mustang", "year": "1980", "country": "USA"},
@@ -184,3 +188,31 @@ var dataObjects = [
   {"name": "Ford Sierra RS Cosworth", "year": "1986", "country": "USA"},
   {"name": "Buick Grand National", "year": "1987", "country": "USA"},
 ];
+
+
+
+// Define um widget Flutter que exibe uma tabela de dados
+class MytileWidget extends StatelessWidget {
+  // Lista de objetos que serão exibidos na tabela
+  final List objects;
+  final List propertyNames;
+  // Construtor da classe MytileWidget
+  MytileWidget({required this.objects, required this.propertyNames});
+  @override
+  Widget build(BuildContext context) { 
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: objects.length,
+      itemBuilder: (context, int index) {
+        final obj = objects[index];
+        return ListTile(
+          title: Text(obj["name"]),
+          subtitle: Text("${propertyNames[0]}: ${obj["year"]} -- country: ${obj["country"]}"),
+          onTap: () {
+            print("Tapped on ${obj["name"]}");
+          },
+        );
+      },
+    );
+  }
+}
