@@ -100,8 +100,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(kToolbarHeight); // Retorna o tamanho preferido da AppBar
 }
 
-
-
 // Widget da barra de navegação inferior personalizada
 class NewNavBar extends StatelessWidget {
   final List<IconData> icones;
@@ -119,6 +117,52 @@ class NewNavBar extends StatelessWidget {
     );
   }
 }
+
+// Define um widget Flutter que exibe uma tabela de dados
+class MytileWidget extends StatelessWidget {
+  // Lista de objetos que serão exibidos na tabela
+  final List objects;
+  final List propertyNames;
+  // Construtor da classe MytileWidget
+  MytileWidget({required this.objects, required this.propertyNames});
+  @override
+  Widget build(BuildContext context) { 
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: objects.length,
+      itemBuilder: (context, int index) {
+        final obj = objects[index];
+        return ListTile(
+          title: Text(obj["name"]),
+          subtitle: Text("${propertyNames[0]}: ${obj["year"]} -- country: ${obj["country"]}"),
+          onTap: () {
+            print("Tapped on ${obj["name"]}");
+          },
+        );
+      },
+    );
+  }
+}
+
+// Lista de objetos que serão exibidos na tabela
+var dataObjects = [
+  {"name": "Ford Mustang", "year": "1980", "country": "USA"},
+  {"name": "Chevrolet Corvette", "year": "1990", "country": "USA"},
+  {"name": "Volkswagen Golf GTI", "year": "1985", "country": "Germany"},
+  {"name": "Toyota Supra", "year": "1995", "country": "Japan"},
+  {"name": "Ferrari F40", "year": "1987", "country": "Italy"},
+  {"name": "Nissan Skyline GT-R", "year": "1999", "country": "Japan"},
+  {"name": "BMW M3", "year": "1992", "country": "Germany"},
+  {"name": "Porsche 911", "year": "1989", "country": "Germany"},
+  {"name": "Honda NSX", "year": "1991", "country": "Japan"},
+  {"name": "Audi Quattro", "year": "1980", "country": "Germany"},
+  {"name": "Lamborghini Countach", "year": "1985", "country": "Italy"},
+  {"name": "Mercedes-Benz 190E 2.3-16", "year": "1984", "country": "Germany"},
+  {"name": "Mazda RX-7", "year": "1986", "country": "Japan"},
+  {"name": "Ford Sierra RS Cosworth", "year": "1986", "country": "USA"},
+  {"name": "Buick Grand National", "year": "1987", "country": "USA"},
+];
+
 
 // // Define um widget Flutter que exibe uma tabela de dados
 // class DataBodyWidget extends StatelessWidget {
@@ -167,52 +211,3 @@ class NewNavBar extends StatelessWidget {
 //     );
 //   }
 // }
-
-
-
-// Lista de objetos que serão exibidos na tabela
-var dataObjects = [
-  {"name": "Ford Mustang", "year": "1980", "country": "USA"},
-  {"name": "Chevrolet Corvette", "year": "1990", "country": "USA"},
-  {"name": "Volkswagen Golf GTI", "year": "1985", "country": "Germany"},
-  {"name": "Toyota Supra", "year": "1995", "country": "Japan"},
-  {"name": "Ferrari F40", "year": "1987", "country": "Italy"},
-  {"name": "Nissan Skyline GT-R", "year": "1999", "country": "Japan"},
-  {"name": "BMW M3", "year": "1992", "country": "Germany"},
-  {"name": "Porsche 911", "year": "1989", "country": "Germany"},
-  {"name": "Honda NSX", "year": "1991", "country": "Japan"},
-  {"name": "Audi Quattro", "year": "1980", "country": "Germany"},
-  {"name": "Lamborghini Countach", "year": "1985", "country": "Italy"},
-  {"name": "Mercedes-Benz 190E 2.3-16", "year": "1984", "country": "Germany"},
-  {"name": "Mazda RX-7", "year": "1986", "country": "Japan"},
-  {"name": "Ford Sierra RS Cosworth", "year": "1986", "country": "USA"},
-  {"name": "Buick Grand National", "year": "1987", "country": "USA"},
-];
-
-
-
-// Define um widget Flutter que exibe uma tabela de dados
-class MytileWidget extends StatelessWidget {
-  // Lista de objetos que serão exibidos na tabela
-  final List objects;
-  final List propertyNames;
-  // Construtor da classe MytileWidget
-  MytileWidget({required this.objects, required this.propertyNames});
-  @override
-  Widget build(BuildContext context) { 
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: objects.length,
-      itemBuilder: (context, int index) {
-        final obj = objects[index];
-        return ListTile(
-          title: Text(obj["name"]),
-          subtitle: Text("${propertyNames[0]}: ${obj["year"]} -- country: ${obj["country"]}"),
-          onTap: () {
-            print("Tapped on ${obj["name"]}");
-          },
-        );
-      },
-    );
-  }
-}
