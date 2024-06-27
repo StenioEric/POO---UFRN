@@ -39,3 +39,7 @@
 -> Receita 6
 
 <https://flutter.zapp.page/#/>
+
+-> Receita 7
+
+<https://za6g06dqa6h0.zapp.page/#/>
